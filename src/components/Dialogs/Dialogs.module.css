@@ -1,0 +1,27 @@
+.dialogs {
+    display: grid;
+    grid-template-columns: 2fr 10fr;
+}
+
+.avatar img {
+    width: 40px;
+    border-radius: 15px;
+}
+
+.dialogsItems {
+    padding: 10px;
+    color: white;
+}
+
+.messages {
+
+    padding: 10px;
+}
+
+.messages .message img {
+    padding: 5px;
+    height: 40px;
+}
+.message {
+    text-align: right;
+}
