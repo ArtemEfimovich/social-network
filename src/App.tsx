@@ -9,7 +9,8 @@ import News from "./components/News/News";
 import Settings from "./components/Settings/Settings";
 import Sidebar from "./components/Sidebar/Sidebar";
 import {BrowserRouter, Route} from "react-router-dom";
-import {RootStateType} from "./redux/state"
+import {addMessage, addPost, RootStateType} from "./redux/state";
+
 
 
 function App(props: RootStateType) {
@@ -22,9 +23,11 @@ function App(props: RootStateType) {
                     <Route path="/dialogs" render={() => <Dialogs
                         dialogs={props.dialogPage.dialogs}
                         messages={props.dialogPage.messages}
+                        addMessage={addMessage}
                     />}/>
                     <Route path="/profile" render={() => <Profile
                         posts={props.profilePage.posts}
+                        addPostCallback={addPost}
                     />}/>
                     <Route path="/music" render={() => <Music/>}/>
                     <Route path="/news" render={() => <News/>}/>

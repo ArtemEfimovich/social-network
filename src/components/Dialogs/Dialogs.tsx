@@ -8,7 +8,16 @@ function Dialogs(props: DialogPageType) {
     let dialogsElements = props.dialogs.map(d => <DialogItem name={d.name} id={d.id}/>);
     let messagesElements = props.messages.map(m => <Message message={m.message} id={m.id}/>);
 
-        return(
+    let addNewMessageText = React.createRef<HTMLTextAreaElement>();
+
+    let addMessage = () => {
+        if (addNewMessageText.current) {
+            props.addMessage(addNewMessageText.current?.value)
+        }
+    }
+
+
+    return (
         <div className={s.dialogs}>
             <div className={s.dialogsItems}>
                 {dialogsElements}
@@ -17,10 +26,10 @@ function Dialogs(props: DialogPageType) {
                 {messagesElements}
             </div>
             <div>
-                <textarea/>
+                <textarea ref={addNewMessageText}/>
             </div>
             <div>
-                <button>
+                <button onClick={addMessage}>
                     Send
                 </button>
             </div>
