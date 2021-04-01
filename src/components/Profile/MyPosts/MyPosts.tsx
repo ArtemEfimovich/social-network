@@ -19,7 +19,7 @@ function MyPosts(props: MyPostsPageType) {
 
     const addPost = () => {
         props.addPost(props.newPostText);
-        props.updateNewPost("")
+        props.updateNewPost ("")
 
     }
 

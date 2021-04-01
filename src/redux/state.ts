@@ -1,4 +1,8 @@
-let rerenderEntireTree=(state:RootStateType)=>{
+let rerenderEntireTree = () => {
+}
+
+export const subscribe = (observer:()=>void) => {
+    rerenderEntireTree=observer
 }
 
 export type PostsType = {
@@ -63,12 +67,12 @@ export const addPost = (postMessage: string) => {
         likesCount: 0
     }
     state.profilePage.posts.push(newPost)
-    rerenderEntireTree(state)
+    rerenderEntireTree()
 }
 
 export const updateNewPostText = (newText: string) => {
     state.profilePage.newPostText = newText
-    rerenderEntireTree(state)
+    rerenderEntireTree()
 }
 
 
@@ -78,14 +82,16 @@ export const addMessage = (Message: string) => {
         message: Message,
     }
     state.dialogPage.messages.push(newMessage)
-    rerenderEntireTree(state)
+    rerenderEntireTree()
 }
 
 
 export const updateNewMessage = (newMessage: string) => {
     state.dialogPage.newMessage = newMessage
-    rerenderEntireTree(state)
+    rerenderEntireTree()
 }
+
+
 
 
 export default state;
