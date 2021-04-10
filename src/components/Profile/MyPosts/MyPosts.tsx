@@ -1,14 +1,13 @@
 import React, {ChangeEvent} from "react";
 import Post from "./Post/Post";
 import s from "./MyPosts.module.css"
-import {PostsType} from "../../../redux/state";
+import {ActionsTypes, addPostActionCreator, PostsType, UpdateNewPostActionCreator} from "../../../redux/state";
 
 
 type MyPostsPageType = {
     posts: Array<PostsType>
-    addPost: (message: string) => void
     newPostText: string
-    updateNewPost: (newText: string) => void
+    dispatch: (action: ActionsTypes) => void
 }
 
 
@@ -18,12 +17,13 @@ function MyPosts(props: MyPostsPageType) {
 
 
     const addPost = () => {
-        props.addPost(props.newPostText);
-        props.updateNewPost ("")
-
+        props.dispatch(addPostActionCreator(props.newPostText))
+        props.dispatch(UpdateNewPostActionCreator(''))
     }
 
-    const newTextChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => props.updateNewPost(e.currentTarget.value)
+    const newTextChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        props.dispatch(UpdateNewPostActionCreator(e.currentTarget.value))
+    }
 
     return (
         <div className={s.postsBlock}>

@@ -9,17 +9,14 @@ import News from "./components/News/News";
 import Settings from "./components/Settings/Settings";
 import Sidebar from "./components/Sidebar/Sidebar";
 import {BrowserRouter, Route} from "react-router-dom";
-import {DialogPageType, ProfilePageType, StoreType} from "./redux/state";
+import {DialogPageType, ProfilePageType, StoreType, ActionsTypes} from "./redux/state";
 
 
 type RootStateType = {
     dialogPage: DialogPageType
     profilePage: ProfilePageType
-    addPost: (message: string) => void
-    addMessage: (message: string) => void
-    updateNewPost:(newText: string)=> void
-    updateNewMessage:(newMessage: string)=> void
-    store:StoreType
+    store: StoreType
+    dispatch: (action: ActionsTypes) => void
 }
 
 
@@ -33,15 +30,13 @@ function App(props: RootStateType) {
                     <Route path="/dialogs" render={() => <Dialogs
                         dialogs={props.dialogPage.dialogs}
                         messages={props.dialogPage.messages}
-                        addMessage={props.addMessage}
-                        updateNewMessage={props.updateNewMessage}
+                        dispatch={props.dispatch}
                         newMessageText={props.dialogPage.newMessage}
                     />}/>
                     <Route path="/profile" render={() => <Profile
                         posts={props.profilePage.posts}
-                        addPost={props.addPost}
+                        dispatch={props.dispatch}
                         newPostText={props.profilePage.newPostText}
-                        updateNewPost={props.updateNewPost}
                     />}/>
                     <Route path="/music" render={() => <Music/>}/>
                     <Route path="/news" render={() => <News/>}/>

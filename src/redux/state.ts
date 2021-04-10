@@ -1,4 +1,4 @@
-
+import {act} from "react-dom/test-utils";
 
 export type PostsType = {
     id: number
@@ -29,19 +29,68 @@ export type RootStateType = {
 }
 
 
+type AddPostActionType = {
+    type: 'ADD-POST'
+    postMessage: string
+}
+type UpdateNewPostActionType = {
+    type: 'UPDATE-NEW-POST'
+    newText: string
+}
+type AddMessageActionType = {
+    type: 'ADD-MESSAGE'
+    Message: string
+}
+type UpdateNewMessageActionType = {
+    type: 'UPDATE-NEW-MESSAGE'
+    newMessage: string
+}
+
 export type StoreType = {
     _state: RootStateType
-    addPost: (postMessage: string)=>void
-    updateNewPostText:(newText: string) => void
-    addMessage:(Message: string) => void
-    updateNewMessage:(newMessage: string) => void
-    subscribe:(observer: () => void)=>void
-    _rerenderEntireTree:()=>void
-    getState:()=>RootStateType
+    subscribe: (observer: (state: RootStateType) => void) => void
+    _callSubscriber: (state: RootStateType) => void
+    getState: () => RootStateType
+    dispatch: (action: ActionsTypes) => void
+}
+
+export type ActionsTypes =
+    ReturnType<typeof addPostActionCreator>
+    | ReturnType<typeof UpdateNewPostActionCreator>
+    | ReturnType<typeof AddMessageActionCreator>
+    | ReturnType<typeof UpdateNewMessageActionCreator>
+
+
+export const addPostActionCreator = (postMessage: string) => {
+    return {
+        type: 'ADD-POST',
+        postMessage: postMessage
+    } as const
+}
+
+export const UpdateNewPostActionCreator = (newText: string) => {
+    return {
+        type: 'UPDATE-NEW-POST',
+        newText: newText
+    } as const
+}
+
+export const AddMessageActionCreator =(message: string) =>{
+    return{
+        type:'ADD-MESSAGE',
+        message:message
+    }as const
+}
+
+export const UpdateNewMessageActionCreator = (newMessage: string) =>{
+    return{
+        type: 'UPDATE-NEW-MESSAGE',
+        newMessage:newMessage
+    }as const
 }
 
 
-let store:StoreType = {
+let store: StoreType = {
     _state: {
         profilePage: {
             posts: [
@@ -66,43 +115,40 @@ let store:StoreType = {
             newMessage: "",
         },
     },
-    addPost(postMessage: string) {
-        const newPost: PostsType = {
-            id: 3,
-            message: postMessage,
-            likesCount: 0
-        }
-            this._state.profilePage.posts.push(newPost)
-        this._rerenderEntireTree()
-    },
-    updateNewPostText(newText: string) {
-        this._state.profilePage.newPostText = newText
-        this._rerenderEntireTree()
-    },
-    addMessage(Message: string) {
-        const newMessage: MessagesType = {
-            id: 3,
-            message: Message,
-        }
-        this._state.dialogPage.messages.push(newMessage)
-        this._rerenderEntireTree()
-    },
-    updateNewMessage(newMessage: string) {
-        this._state.dialogPage.newMessage = newMessage
-        this._rerenderEntireTree()
-    },
-    _rerenderEntireTree(){
+    _callSubscriber() {
         console.log('state changed')
     },
-    subscribe (observer) {
-        this._rerenderEntireTree = observer
+    subscribe(observer) {
+        this._callSubscriber = observer
     },
     getState() {
         return this._state
+    },
+    dispatch(action) {
+        if (action.type === 'ADD-POST') {
+            const newPost: PostsType = {
+                id: 3,
+                message: action.postMessage,
+                likesCount: 0
+            }
+            this._state.profilePage.posts.push(newPost)
+            this._callSubscriber(this._state)
+        } else if (action.type === 'UPDATE-NEW-POST') {
+            this._state.profilePage.newPostText = action.newText
+            this._callSubscriber(this._state)
+        } else if (action.type === 'ADD-MESSAGE') {
+            const newMessage: MessagesType = {
+                id: 3,
+                message: action.message,
+            }
+            this._state.dialogPage.messages.push(newMessage)
+            this._callSubscriber(this._state)
+        } else if (action.type === 'UPDATE-NEW-MESSAGE') {
+            this._state.dialogPage.newMessage = action.newMessage
+            this._callSubscriber(this._state)
+        }
     }
-
 }
-
 
 
 export default store;
