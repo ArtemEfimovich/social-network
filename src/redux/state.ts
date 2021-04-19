@@ -1,4 +1,5 @@
-import {act} from "react-dom/test-utils";
+import profileReducer, {addPostActionCreator, UpdateNewPostActionCreator} from "./profile-reducer";
+import dialogReducer, {AddMessageActionCreator, UpdateNewMessageActionCreator} from "./dialogs-reducer";
 
 export type PostsType = {
     id: number
@@ -61,33 +62,8 @@ export type ActionsTypes =
     | ReturnType<typeof UpdateNewMessageActionCreator>
 
 
-export const addPostActionCreator = (postMessage: string) => {
-    return {
-        type: 'ADD-POST',
-        postMessage: postMessage
-    } as const
-}
 
-export const UpdateNewPostActionCreator = (newText: string) => {
-    return {
-        type: 'UPDATE-NEW-POST',
-        newText: newText
-    } as const
-}
 
-export const AddMessageActionCreator =(message: string) =>{
-    return{
-        type:'ADD-MESSAGE',
-        message:message
-    }as const
-}
-
-export const UpdateNewMessageActionCreator = (newMessage: string) =>{
-    return{
-        type: 'UPDATE-NEW-MESSAGE',
-        newMessage:newMessage
-    }as const
-}
 
 
 let store: StoreType = {
@@ -125,28 +101,10 @@ let store: StoreType = {
         return this._state
     },
     dispatch(action) {
-        if (action.type === 'ADD-POST') {
-            const newPost: PostsType = {
-                id: 3,
-                message: action.postMessage,
-                likesCount: 0
-            }
-            this._state.profilePage.posts.push(newPost)
-            this._callSubscriber(this._state)
-        } else if (action.type === 'UPDATE-NEW-POST') {
-            this._state.profilePage.newPostText = action.newText
-            this._callSubscriber(this._state)
-        } else if (action.type === 'ADD-MESSAGE') {
-            const newMessage: MessagesType = {
-                id: 3,
-                message: action.message,
-            }
-            this._state.dialogPage.messages.push(newMessage)
-            this._callSubscriber(this._state)
-        } else if (action.type === 'UPDATE-NEW-MESSAGE') {
-            this._state.dialogPage.newMessage = action.newMessage
-            this._callSubscriber(this._state)
-        }
+        this._state = profileReducer(this._state, action)
+        this._state= dialogReducer(this._state,action)
+        this._callSubscriber(this._state)
+
     }
 }
 
