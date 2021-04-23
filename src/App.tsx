@@ -9,13 +9,12 @@ import News from "./components/News/News";
 import Settings from "./components/Settings/Settings";
 import Sidebar from "./components/Sidebar/Sidebar";
 import {BrowserRouter, Route} from "react-router-dom";
-import {DialogPageType, ProfilePageType, StoreType, ActionsTypes} from "./redux/state";
+import {DialogPageType, ProfilePageType, StoreType, ActionsTypes} from "./redux/store";
 
 
 type RootStateType = {
     dialogPage: DialogPageType
     profilePage: ProfilePageType
-    store: StoreType
     dispatch: (action: ActionsTypes) => void
 }
 

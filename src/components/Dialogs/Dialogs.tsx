@@ -7,7 +7,7 @@ import {
     AddMessageActionCreator,
     UpdateNewMessageActionCreator
 } from "../../redux/dialogs-reducer";
-import {ActionsTypes, DialogsType, MessagesType} from "../../redux/state";
+import {ActionsTypes, DialogsType, MessagesType} from "../../redux/store";
 
 type DialogPageType = {
     dialogs: Array<DialogsType>

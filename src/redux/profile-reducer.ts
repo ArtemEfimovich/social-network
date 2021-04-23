@@ -1,8 +1,15 @@
-import {ActionsTypes, PostsType, RootStateType} from "./state";
+import {ActionsTypes, PostsType, ProfilePageType, RootStateType} from "./store";
 
 
-const profileReducer = (state:RootStateType, action:ActionsTypes) => {
+let initialState: ProfilePageType= {
+    posts: [
+        {id: 0, message: 'Hi, how are you?', likesCount: 15},
+        {id: 1, message: "It's my first post", likesCount: 17}
+    ],
+    newPostText: ""
+}
 
+const profileReducer = (state: ProfilePageType = initialState, action: ActionsTypes) => {
     switch (action.type) {
         case 'ADD-POST':
             const newPost: PostsType = {
@@ -10,10 +17,10 @@ const profileReducer = (state:RootStateType, action:ActionsTypes) => {
                 message: action.postMessage,
                 likesCount: 0
             }
-            state.profilePage.posts.push(newPost)
+            state.posts.push(newPost)
             return state
         case 'UPDATE-NEW-POST':
-            state.profilePage.newPostText = action.newText
+            state.newPostText = action.newText
             return state
         default:
             return state
