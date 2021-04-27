@@ -3,7 +3,7 @@ import {AddMessageActionCreator, DialogPageType, UpdateNewMessageActionCreator} 
 import {AppStateType} from "../../redux/redux-store";
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
-import { Dispatch } from 'redux';
+import {Dispatch} from 'redux';
 
 
 type MapStatePropsType={

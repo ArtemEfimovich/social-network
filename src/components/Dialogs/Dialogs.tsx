@@ -2,8 +2,7 @@ import React from 'react';
 import Message from "./Message/Message";
 import DialogItem from "./DialogItem/DialogItem";
 import s from "./Dialogs.module.css"
-import { DialogPageType } from '../../redux/dialogs-reducer';
-import {access} from "fs";
+import {DialogPageType} from '../../redux/dialogs-reducer';
 
 
 type DialogPageTypes = {
@@ -13,8 +12,8 @@ type DialogPageTypes = {
 }
 
 function Dialogs(props: DialogPageTypes) {
-    const dialogsElements = props.dialogPage.dialogs.map(d => <DialogItem name={d.name} id={d.id}/>);
-    const messagesElements = props.dialogPage.messages.map(m => <Message message={m.message} id={m.id}/>);
+    const dialogsElements = props.dialogPage.dialogs.map(d => <DialogItem name={d.name} id={d.id} key={d.id}/>);
+    const messagesElements = props.dialogPage.messages.map(m => <Message message={m.message} id={m.id} key={m.id}/>);
 
     const onAddMessage = (event: any) => {
         props.addMessage(event)

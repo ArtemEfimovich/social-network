@@ -13,7 +13,7 @@ type MyPostsPageType = {
 
 function MyPosts(props: MyPostsPageType) {
     const postsElements =
-        props.profilePage.posts.map(p => <Post id={p.id} message={p.message} likesCount={p.likesCount}/>)
+        props.profilePage.posts.map(p => <Post id={p.id} message={p.message} likesCount={p.likesCount} key={p.id}/>)
 
 
     const onAddPost = (event:any) => {

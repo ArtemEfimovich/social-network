@@ -4,7 +4,6 @@ import MyPosts from "./MyPosts";
 import {AppStateType} from "../../../redux/redux-store";
 import {Dispatch} from "redux";
 import {connect} from "react-redux";
-import {DialogPageType} from "../../../redux/dialogs-reducer";
 
 
 type MapStatePropsType={
