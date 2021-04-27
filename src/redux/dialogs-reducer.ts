@@ -1,8 +1,7 @@
 import {ActionsTypes} from "./store";
 
 
-
-type DialogPageType={
+export type DialogPageType = {
     dialogs: Array<DialogsType>
     messages: Array<MessagesType>
     newMessage: string
@@ -16,7 +15,6 @@ export type MessagesType = {
     message: string
 
 }
-
 
 
 let initialState: DialogPageType = {
@@ -36,7 +34,7 @@ let initialState: DialogPageType = {
 }
 
 
-const dialogReducer = (state=initialState , action: ActionsTypes):DialogPageType  => {
+const dialogReducer = (state: DialogPageType = initialState, action: ActionsTypes): DialogPageType => {
     switch (action.type) {
         case 'ADD-MESSAGE':
             const newMessage: MessagesType = {

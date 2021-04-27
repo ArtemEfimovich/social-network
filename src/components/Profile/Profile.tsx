@@ -6,16 +6,14 @@ import MyPostsContainer from "./MyPosts/MyPostsContainer";
 
 
 type ProfilePageType = {
-    store: StoreType
+
 }
 
 function Profile(props: ProfilePageType) {
     return (
         <div>
             <ProfileInfo/>
-            <MyPostsContainer
-                store={props.store}
-            />
+            <MyPostsContainer/>
         </div>
     )
 }

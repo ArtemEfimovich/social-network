@@ -1,11 +1,12 @@
 import {ActionsTypes} from "./store";
 
 
-type ProfilePageType ={
+export type ProfilePageType ={
     posts: Array<PostsType>
     newPostText: string
 }
-type PostsType ={
+
+export type PostsType ={
     id: number
     message: string
     likesCount: number

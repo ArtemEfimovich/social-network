@@ -1,25 +1,23 @@
-import React, {ChangeEvent} from "react";
+import React from "react";
 import Post from "./Post/Post";
 import s from "./MyPosts.module.css"
-import {UpdateNewPostActionCreator} from "../../../redux/profile-reducer";
-import {PostsType} from "../../../redux/store";
+import {ProfilePageType} from "../../../redux/profile-reducer";
 
 
 type MyPostsPageType = {
-    posts: Array<PostsType>
-    addPost: () => void
+    profilePage:ProfilePageType
+    addPost: (event:any) => void
     updateNewPostText:(text:React.ChangeEvent<HTMLTextAreaElement>)=>void
-    newPostText: string
 }
 
 
 function MyPosts(props: MyPostsPageType) {
     const postsElements =
-        props.posts.map(p => <Post id={p.id} message={p.message} likesCount={p.likesCount}/>)
+        props.profilePage.posts.map(p => <Post id={p.id} message={p.message} likesCount={p.likesCount}/>)
 
 
-    const onAddPost = () => {
-       props.addPost()
+    const onAddPost = (event:any) => {
+       props.addPost(event)
     }
 
     const onAddChange = (text: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -32,7 +30,7 @@ function MyPosts(props: MyPostsPageType) {
             <div>
                 <div>
                     <textarea onChange={onAddChange}
-                    value={props.newPostText}
+                    value={props.profilePage.newPostText}
                     />
                 </div>
                 <div>

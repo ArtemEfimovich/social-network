@@ -1,42 +1,39 @@
 import React, {ChangeEvent} from 'react';
-import Message from "./Message/Message";
-import DialogItem from "./DialogItem/DialogItem";
-import s from "./Dialogs.module.css"
-
-import {
-    AddMessageActionCreator,
-    UpdateNewMessageActionCreator
-} from "../../redux/dialogs-reducer";
-import {ActionsTypes, DialogsType, MessagesType, StoreType} from "../../redux/store";
+import {AddMessageActionCreator, DialogPageType, UpdateNewMessageActionCreator} from "../../redux/dialogs-reducer";
+import {AppStateType} from "../../redux/redux-store";
 import Dialogs from "./Dialogs";
+import {connect} from "react-redux";
+import { Dispatch } from 'redux';
 
-type DialogPageType = {
-    store: StoreType
+
+type MapStatePropsType={
+    dialogPage: DialogPageType
+}
+type MapDispatchPropsType={
+    addMessage: (message: string)=>void
+    updateNewMessageText:(e: ChangeEvent<HTMLTextAreaElement>)=>void
 }
 
-function DialogsContainer(props: DialogPageType) {
-    let state = props.store.getState();
 
-    const addMessage = () => {
-        props.store.dispatch(AddMessageActionCreator(state.dialogPage.newMessage))
-        props.store.dispatch(UpdateNewMessageActionCreator(''))
+const mapStateToProps = (state:AppStateType):MapStatePropsType => {
+    return {
+        dialogPage: state.dialogPage
     }
+}
+const mapDispatchToProps = (dispatch:Dispatch):MapDispatchPropsType => {
+    return {
 
-    const newMessageChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.store.dispatch(UpdateNewMessageActionCreator(e.currentTarget.value))
+        addMessage: (message:string) => {
+            dispatch(AddMessageActionCreator(message))
+            dispatch(UpdateNewMessageActionCreator(''))
+        },
+        updateNewMessageText: (text: ChangeEvent<HTMLTextAreaElement>) => {
+            dispatch(UpdateNewMessageActionCreator(text.currentTarget.value))
+        }
     }
-
-
-    return (
-        <Dialogs
-            addMessage={addMessage}
-            updateNewMessageText={newMessageChangeHandler}
-            dialogs={state.dialogPage.dialogs}
-            messages={state.dialogPage.messages}
-            newMessage={state.dialogPage.newMessage}
-        />
-    )
 }
 
+
+const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
 
 export default DialogsContainer
