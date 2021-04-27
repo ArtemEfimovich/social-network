@@ -1,18 +1,17 @@
-import {RootStateType} from "./redux/store";
-import store from "./redux/redux-store";
+import store, {RootStateType} from "./redux/store";
 import React from 'react';
 import ReactDOM from 'react-dom';
+
 import './index.css';
 import App from './App';
 import {BrowserRouter} from "react-router-dom";
 
 
-const rerenderEntireTree = (state: RootStateType) => {
+const rerenderEntireTree = (state:RootStateType) => {
     ReactDOM.render(
         <BrowserRouter>
             <App
-                dialogPage={store._state.dialogPage}
-                profilePage={store._state.profilePage}
+                store={store}
                 dispatch={store.dispatch.bind(store)}
             />
         </BrowserRouter>

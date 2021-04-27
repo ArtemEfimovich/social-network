@@ -101,8 +101,8 @@ let store: StoreType = {
         return this._state
     },
     dispatch(action) {
-        this._state = profileReducer(this._state, action)
-        this._state= dialogReducer(this._state,action)
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._state.dialogPage = dialogReducer(this._state.dialogPage ,action)
         this._callSubscriber(this._state)
 
     }

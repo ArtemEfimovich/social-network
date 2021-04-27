@@ -1,14 +1,15 @@
 import React, {ChangeEvent} from "react";
 import Post from "./Post/Post";
 import s from "./MyPosts.module.css"
-import { addPostActionCreator, UpdateNewPostActionCreator} from "../../../redux/profile-reducer";
-import {ActionsTypes, PostsType} from "../../../redux/store";
+import {UpdateNewPostActionCreator} from "../../../redux/profile-reducer";
+import {PostsType} from "../../../redux/store";
 
 
 type MyPostsPageType = {
     posts: Array<PostsType>
+    addPost: () => void
+    updateNewPostText:(text:React.ChangeEvent<HTMLTextAreaElement>)=>void
     newPostText: string
-    dispatch: (action: ActionsTypes) => void
 }
 
 
@@ -17,13 +18,12 @@ function MyPosts(props: MyPostsPageType) {
         props.posts.map(p => <Post id={p.id} message={p.message} likesCount={p.likesCount}/>)
 
 
-    const addPost = () => {
-        props.dispatch(addPostActionCreator(props.newPostText))
-        props.dispatch(UpdateNewPostActionCreator(''))
+    const onAddPost = () => {
+       props.addPost()
     }
 
-    const newTextChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch(UpdateNewPostActionCreator(e.currentTarget.value))
+    const onAddChange = (text: React.ChangeEvent<HTMLTextAreaElement>) => {
+        props.updateNewPostText(text)
     }
 
     return (
@@ -31,11 +31,13 @@ function MyPosts(props: MyPostsPageType) {
             <h3>My posts</h3>
             <div>
                 <div>
-                    <textarea onChange={newTextChangeHandler}/>
+                    <textarea onChange={onAddChange}
+                    value={props.newPostText}
+                    />
                 </div>
                 <div>
 
-                    <button onClick={addPost}>Add post</button>
+                    <button onClick={onAddPost}>Add post</button>
                 </div>
 
             </div>

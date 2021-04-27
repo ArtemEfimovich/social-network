@@ -7,26 +7,27 @@ import {
     AddMessageActionCreator,
     UpdateNewMessageActionCreator
 } from "../../redux/dialogs-reducer";
-import {ActionsTypes, DialogsType, MessagesType} from "../../redux/store";
+import {ActionsTypes, DialogsType, MessagesType, StoreType} from "../../redux/store";
 
 type DialogPageType = {
+
     dialogs: Array<DialogsType>
     messages: Array<MessagesType>
-    newMessageText: string
-    dispatch:(action:ActionsTypes)=>void
+    newMessage: string
+   addMessage:()=>void
+    updateNewMessageText:(text:React.ChangeEvent<HTMLTextAreaElement>)=>void
 }
 
 function Dialogs(props: DialogPageType) {
     const dialogsElements = props.dialogs.map(d => <DialogItem name={d.name} id={d.id}/>);
     const messagesElements = props.messages.map(m => <Message message={m.message} id={m.id}/>);
 
-    const addMessage = () => {
-        props.dispatch(AddMessageActionCreator(props.newMessageText))
-        props.dispatch(UpdateNewMessageActionCreator(''))
+    const onAddMessage = () => {
+        props.addMessage()
     }
 
-    const newMessageChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) =>{
-        props.dispatch(UpdateNewMessageActionCreator(e.currentTarget.value))
+    const onAddChange = (text: React.ChangeEvent<HTMLTextAreaElement>) => {
+        props.updateNewMessageText(text)
     }
 
 
@@ -39,10 +40,10 @@ function Dialogs(props: DialogPageType) {
                 {messagesElements}
             </div>
             <div>
-                <textarea onChange={newMessageChangeHandler}/>
+                <textarea onChange={onAddChange} value={props.newMessage}/>
             </div>
             <div>
-                <button onClick={addMessage}>
+                <button onClick={onAddMessage}>
                     Send
                 </button>
             </div>

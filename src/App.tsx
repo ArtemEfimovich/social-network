@@ -10,12 +10,12 @@ import Settings from "./components/Settings/Settings";
 import Sidebar from "./components/Sidebar/Sidebar";
 import {BrowserRouter, Route} from "react-router-dom";
 import {DialogPageType, ProfilePageType, StoreType, ActionsTypes} from "./redux/store";
+import DialogsContainer from "./components/Dialogs/DialogsContainer";
 
 
 type RootStateType = {
-    dialogPage: DialogPageType
-    profilePage: ProfilePageType
     dispatch: (action: ActionsTypes) => void
+    store: StoreType
 }
 
 
@@ -26,16 +26,11 @@ function App(props: RootStateType) {
                 <Header/>
                 <Navbar/>
                 <div className='app-wrapper-content'>
-                    <Route path="/dialogs" render={() => <Dialogs
-                        dialogs={props.dialogPage.dialogs}
-                        messages={props.dialogPage.messages}
-                        dispatch={props.dispatch}
-                        newMessageText={props.dialogPage.newMessage}
+                    <Route path="/dialogs" render={() => <DialogsContainer
+                       store={props.store}
                     />}/>
                     <Route path="/profile" render={() => <Profile
-                        posts={props.profilePage.posts}
-                        dispatch={props.dispatch}
-                        newPostText={props.profilePage.newPostText}
+                        store={props.store}
                     />}/>
                     <Route path="/music" render={() => <Music/>}/>
                     <Route path="/news" render={() => <News/>}/>
