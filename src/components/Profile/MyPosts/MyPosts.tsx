@@ -6,7 +6,7 @@ import {ProfilePageType} from "../../../redux/profile-reducer";
 
 type MyPostsPageType = {
     profilePage:ProfilePageType
-    addPost: (event:any) => void
+    addPost: (event: React.MouseEvent) => void
     updateNewPostText:(text:React.ChangeEvent<HTMLTextAreaElement>)=>void
 }
 
@@ -16,7 +16,7 @@ function MyPosts(props: MyPostsPageType) {
         props.profilePage.posts.map(p => <Post id={p.id} message={p.message} likesCount={p.likesCount} key={p.id}/>)
 
 
-    const onAddPost = (event:any) => {
+    const onAddPost = (event: React.MouseEvent) => {
        props.addPost(event)
     }
 

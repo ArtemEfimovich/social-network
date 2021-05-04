@@ -4,6 +4,7 @@ import MyPosts from "./MyPosts";
 import {AppStateType} from "../../../redux/redux-store";
 import {Dispatch} from "redux";
 import {connect} from "react-redux";
+import {PostsType} from "../../../redux/store";
 
 
 type MapStatePropsType={
@@ -13,8 +14,11 @@ type MapStatePropsType={
 
 type MapDispatchToPropsType = {
     addPost: (postMessage: string) => void
-    updateNewPostText:(text: ChangeEvent<HTMLTextAreaElement>)=>void
+    updateNewPostText:(newText: string)=>void
 }
+
+
+
 
 
 const mapStateToProps = (state: AppStateType):MapStatePropsType => {
@@ -27,14 +31,14 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
     return {
         addPost: (postMessage: string) => {
             dispatch(addPostActionCreator(postMessage))
-            dispatch(UpdateNewPostActionCreator(''))
         },
-        updateNewPostText: (text: ChangeEvent<HTMLTextAreaElement>) => {
-            dispatch(UpdateNewPostActionCreator(text.currentTarget.value))
+        updateNewPostText: (newText: string) => {
+            dispatch(UpdateNewPostActionCreator(newText))
         }
     }
 }
 
+// @ts-ignore
 const MyPostsContainer=connect(mapStateToProps,mapDispatchToProps)(MyPosts)
 
 export default MyPostsContainer

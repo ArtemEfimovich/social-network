@@ -15,8 +15,8 @@ function Dialogs(props: DialogPageTypes) {
     const dialogsElements = props.dialogPage.dialogs.map(d => <DialogItem name={d.name} id={d.id} key={d.id}/>);
     const messagesElements = props.dialogPage.messages.map(m => <Message message={m.message} id={m.id} key={m.id}/>);
 
-    const onAddMessage = (event: any) => {
-        props.addMessage(event)
+    const onAddMessage = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        props.addMessage( e.target as HTMLButtonElement)
     }
 
     const onAddChange = (text: React.ChangeEvent<HTMLTextAreaElement>) => {

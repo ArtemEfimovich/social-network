@@ -10,7 +10,7 @@ type MapStatePropsType={
     dialogPage: DialogPageType
 }
 type MapDispatchPropsType={
-    addMessage: (message: string)=>void
+    addMessage: (message: string) => void
     updateNewMessageText:(e: ChangeEvent<HTMLTextAreaElement>)=>void
 }
 
