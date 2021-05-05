@@ -7,11 +7,16 @@ export type UsersPageType={
 
 export type UsersType={
     id: number
-    photoURL:string
+    photos:PhotosType
     followed: boolean
-    fullName: string
+    name: string
     status: string
     location:  LocationType
+}
+
+type PhotosType={
+    small: string
+    large: string
 }
 type LocationType={
     city: string
