@@ -2,12 +2,12 @@ import React from 'react';
 import Message from "./Message/Message";
 import DialogItem from "./DialogItem/DialogItem";
 import s from "./Dialogs.module.css"
-import {DialogPageType} from '../../redux/dialogs-reducer';
+import {DialogsPageType} from '../../redux/dialogs-reducer';
 
 
 type DialogPageTypes = {
-    dialogPage: DialogPageType
-    addMessage:(event: any) => void
+    dialogPage: DialogsPageType
+    addMessage: () => void
     updateNewMessageText: (text: React.ChangeEvent<HTMLTextAreaElement>) => void
 }
 
@@ -15,8 +15,8 @@ function Dialogs(props: DialogPageTypes) {
     const dialogsElements = props.dialogPage.dialogs.map(d => <DialogItem name={d.name} id={d.id} key={d.id}/>);
     const messagesElements = props.dialogPage.messages.map(m => <Message message={m.message} id={m.id} key={m.id}/>);
 
-    const onAddMessage = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        props.addMessage( e.target as HTMLButtonElement)
+    const onAddMessage = () => {
+        props.addMessage()
     }
 
     const onAddChange = (text: React.ChangeEvent<HTMLTextAreaElement>) => {

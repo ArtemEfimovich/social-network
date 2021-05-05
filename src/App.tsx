@@ -6,9 +6,9 @@ import Profile from "./components/Profile/Profile";
 import Music from "./components/Music/Music";
 import News from "./components/News/News";
 import Settings from "./components/Settings/Settings";
-import Sidebar from "./components/Sidebar/Sidebar";
 import {BrowserRouter, Route} from "react-router-dom";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
+import UsersContainer from "./components/Users/UsersContainer";
 
 
 function App() {
@@ -23,7 +23,7 @@ function App() {
                     <Route path="/music" render={() => <Music/>}/>
                     <Route path="/news" render={() => <News/>}/>
                     <Route path="/settings" render={() => <Settings/>}/>
-                    <Route path="/sidebar" render={() => <Sidebar/>}/>
+                    <Route path="/users" render={() => <UsersContainer />}/>
                 </div>
             </div>
         </BrowserRouter>

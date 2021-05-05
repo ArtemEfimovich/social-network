@@ -3,11 +3,9 @@ import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 
 
-type ProfilePageType = {
 
-}
 
-function Profile(props: ProfilePageType) {
+function Profile() {
     return (
         <div>
             <ProfileInfo/>

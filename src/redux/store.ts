@@ -1,5 +1,6 @@
 import profileReducer, {addPostActionCreator, UpdateNewPostActionCreator} from "./profile-reducer";
 import dialogReducer, {AddMessageActionCreator, UpdateNewMessageActionCreator} from "./dialogs-reducer";
+import {FollowAC, SetUsersAC, UnfollowAC} from "./users-reducer";
 
 export type PostsType = {
     id: number
@@ -60,10 +61,9 @@ export type ActionsTypes =
     | ReturnType<typeof UpdateNewPostActionCreator>
     | ReturnType<typeof AddMessageActionCreator>
     | ReturnType<typeof UpdateNewMessageActionCreator>
-
-
-
-
+    | ReturnType<typeof FollowAC>
+    | ReturnType<typeof UnfollowAC>
+    | ReturnType<typeof SetUsersAC>
 
 
 let store: StoreType = {
@@ -102,7 +102,7 @@ let store: StoreType = {
     },
     dispatch(action) {
         this._state.profilePage = profileReducer(this._state.profilePage, action)
-        this._state.dialogPage = dialogReducer(this._state.dialogPage ,action)
+        this._state.dialogPage = dialogReducer(this._state.dialogPage, action)
         this._callSubscriber(this._state)
 
     }

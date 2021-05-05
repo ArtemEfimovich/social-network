@@ -6,7 +6,7 @@ import {PostsType} from "../../../../redux/store";
 function Post (props:PostsType){
     return(
         <div className={s.item}>
-            <img src={'https://movies4maniacs.liberty.me/wp-content/uploads/sites/1218/2015/09/avatarsucks.jpg'} alt={'https://movies4maniacs.liberty.me/wp-content/uploads/sites/1218/2015/09/avatarsucks.jpg'}/>
+            <img src={"https://i.redd.it/z394307odi741.png"} alt={"https://i.redd.it/z394307odi741.png"}/>
             {props.message}
             <div>
                 <span>Like</span>{props.likesCount}
