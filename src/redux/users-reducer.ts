@@ -3,6 +3,9 @@ import {ActionsTypes} from "./store";
 
 export type UsersPageType={
     users:Array<UsersType>
+    pageSize:number
+    totalUserCount:number
+    currentPage:number
 }
 
 export type UsersType={
@@ -25,11 +28,14 @@ type LocationType={
 
 
 let initialState:UsersPageType= {
-    users: []
+    users: [],
+    pageSize: 5,
+    totalUserCount:10,
+    currentPage:1
+
 }
 
 export const usersReducer = (state:UsersPageType = initialState , action: ActionsTypes):UsersPageType => {
-
         switch (action.type) {
             case "FOLLOW":
                 return {
@@ -44,7 +50,17 @@ export const usersReducer = (state:UsersPageType = initialState , action: Action
             case "SET_USERS":
                 return {
                     ...state,
-                    users: [...state.users, ...action.users]
+                    users: [...action.users]
+                }
+            case "SET_CURRENT_PAGE":
+            return{
+                ...state,
+                currentPage: action.currentPage
+            }
+            case "SET_TOTAL_USER_COUNT":
+                return {
+                    ...state,
+                    totalUserCount:action.totalUserCount
                 }
             default:
                 return state
@@ -71,6 +87,20 @@ export const SetUsersAC = (users:Array<UsersType>) => {
         type: 'SET_USERS',
         users
     } as const
+}
+
+export const SetCurrentPageAC=(currentPage:number) =>{
+    return{
+        type: 'SET_CURRENT_PAGE',
+        currentPage
+    }as const
+}
+
+export const SetTotalUserCountAC=(totalUserCount:number) =>{
+    return{
+        type:'SET_TOTAL_USER_COUNT',
+        totalUserCount
+    }as const
 }
 
 
