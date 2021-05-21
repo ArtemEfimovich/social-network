@@ -5,7 +5,7 @@ import axios from 'axios';
 import userPhoto from "../../assets/image/image.png"
 
 
-type UserPageType = {
+export type UserPageType = {
     users: Array<UsersType>
     follow: (userId: number) => void
     unFollow: (userId: number) => void

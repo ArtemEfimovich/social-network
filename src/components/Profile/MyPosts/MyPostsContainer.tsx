@@ -1,9 +1,9 @@
 import React, {ChangeEvent} from "react";
 import {addPostActionCreator, ProfilePageType, UpdateNewPostActionCreator} from "../../../redux/profile-reducer";
-import MyPosts from "./MyPosts";
 import {AppStateType} from "../../../redux/redux-store";
 import {Dispatch} from "redux";
 import {connect} from "react-redux";
+import MyPostsC from "./MyPostsC";
 
 
 type MapStatePropsType = {
@@ -37,7 +37,8 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
 
 
 
+
 // @ts-ignore
-const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts)
+const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPostsC)
 
 export default MyPostsContainer

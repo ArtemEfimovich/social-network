@@ -1,9 +1,9 @@
 import React, {ChangeEvent} from 'react';
 import {AddMessageActionCreator, DialogsPageType, UpdateNewMessageActionCreator} from "../../redux/dialogs-reducer";
 import {AppStateType} from "../../redux/redux-store";
-import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
 import {Dispatch} from 'redux';
+import DialogsC from "./DialogsC";
 
 
 type MapStatePropsType={
@@ -35,7 +35,8 @@ const mapDispatchToProps = (dispatch:Dispatch):MapDispatchPropsType => {
 
 
 
+
 // @ts-ignore
-const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
+const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(DialogsC)
 
 export default DialogsContainer
