@@ -1,6 +1,13 @@
 import profileReducer, {addPostActionCreator, UpdateNewPostActionCreator} from "./profile-reducer";
 import dialogReducer, {AddMessageActionCreator, UpdateNewMessageActionCreator} from "./dialogs-reducer";
-import {FollowAC, SetCurrentPageAC, SetTotalUserCountAC, SetUsersAC, UnfollowAC} from "./users-reducer";
+import {
+    FollowAC,
+    SetCurrentPageAC,
+    SetTotalUserCountAC,
+    SetUsersAC,
+    ToggleIsFetchingAC,
+    UnfollowAC
+} from "./users-reducer";
 
 export type PostsType = {
     id: number
@@ -64,8 +71,9 @@ export type ActionsTypes =
     | ReturnType<typeof FollowAC>
     | ReturnType<typeof UnfollowAC>
     | ReturnType<typeof SetUsersAC>
-    |ReturnType<typeof SetCurrentPageAC>
-    |ReturnType<typeof SetTotalUserCountAC>
+    | ReturnType<typeof SetCurrentPageAC>
+    | ReturnType<typeof SetTotalUserCountAC>
+    | ReturnType<typeof ToggleIsFetchingAC>
 
 
 let store: StoreType = {
