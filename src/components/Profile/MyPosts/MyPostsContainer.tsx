@@ -1,7 +1,6 @@
-import React, {ChangeEvent} from "react";
-import {addPostActionCreator, ProfilePageType, UpdateNewPostActionCreator} from "../../../redux/profile-reducer";
+import React from "react";
+import {addPost, ProfilePageType, updateNewPost} from "../../../redux/profile-reducer";
 import {AppStateType} from "../../../redux/redux-store";
-import {Dispatch} from "redux";
 import {connect} from "react-redux";
 import MyPostsC from "./MyPostsC";
 
@@ -11,32 +10,13 @@ type MapStatePropsType = {
 }
 
 
-type MapDispatchToPropsType = {
-    addPost: (postMessage: string) => void
-    updateNewPostText: (text: ChangeEvent<HTMLTextAreaElement>) => void
-}
-
-
 const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
         profilePage: state.profilePage
     }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
-    return {
-        addPost: (postMessage: string) => {
-            dispatch(addPostActionCreator(postMessage))
-            dispatch(UpdateNewPostActionCreator(''))
-        },
-        updateNewPostText: (text: ChangeEvent<HTMLTextAreaElement>) => {
-            dispatch(UpdateNewPostActionCreator(text.currentTarget.value))
-        }
-    }
-}
-
-
 
 
 // @ts-ignore
-export default connect(mapStateToProps, mapDispatchToProps)(MyPostsC)
+export default connect(mapStateToProps, {addPost,updateNewPost})(MyPostsC)

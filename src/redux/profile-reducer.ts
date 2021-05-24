@@ -4,6 +4,7 @@ import {ActionsTypes} from "./store";
 export type ProfilePageType ={
     posts: Array<PostsType>
     newPostText: string
+    profile:Array<ProfileType>
 }
 
 export type PostsType ={
@@ -11,7 +12,14 @@ export type PostsType ={
     message: string
     likesCount: number
 }
+export type ProfileType={
+   photos:PhotoType
+}
 
+type PhotoType ={
+    small:string
+    large:string
+}
 
 
 let initialState: ProfilePageType= {
@@ -19,7 +27,8 @@ let initialState: ProfilePageType= {
         {id: 0, message: 'Hi, how are you?', likesCount: 15},
         {id: 1, message: "It's my first post", likesCount: 17}
     ],
-    newPostText: ""
+    newPostText: "cdscdscsdc",
+    profile: []
 }
 
 const profileReducer = (state: ProfilePageType = initialState , action: ActionsTypes): ProfilePageType => {
@@ -33,8 +42,13 @@ const profileReducer = (state: ProfilePageType = initialState , action: ActionsT
         case 'UPDATE-NEW-POST':
             return{
                 ...state,
-                newPostText: action.newText
+                newPostText: action.newPostText
             }
+        case 'SET-USER-PROFILE':
+        return {
+            ...state,
+            profile: [...action.profile]
+        }
         default:
             return state
 
@@ -44,18 +58,25 @@ const profileReducer = (state: ProfilePageType = initialState , action: ActionsT
 
 
 
-export const addPostActionCreator = (postMessage: string) => {
+export const addPost = (postMessage: string) => {
     return {
         type: 'ADD-POST',
-        postMessage: postMessage
+        postMessage
     } as const
 }
 
-export const UpdateNewPostActionCreator = (newText: string) => {
+export const updateNewPost = (newPostText: string) => {
     return {
         type: 'UPDATE-NEW-POST',
-        newText: newText
+        newPostText
     } as const
+}
+
+export const setUserProfile = (profile:Array<ProfileType>)=>{
+    return{
+        type: 'SET-USER-PROFILE',
+        profile
+    }as const
 }
 
 

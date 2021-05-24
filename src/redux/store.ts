@@ -1,13 +1,6 @@
-import profileReducer, {addPostActionCreator, UpdateNewPostActionCreator} from "./profile-reducer";
+import profileReducer, {addPost, setUserProfile, updateNewPost} from "./profile-reducer";
 import dialogReducer, {AddMessageActionCreator, UpdateNewMessageActionCreator} from "./dialogs-reducer";
-import {
-    FollowAC,
-    SetCurrentPageAC,
-    SetTotalUserCountAC,
-    SetUsersAC,
-    ToggleIsFetchingAC,
-    UnfollowAC
-} from "./users-reducer";
+import {follow, setCurrentPage, setTotalUserCount, setUsers, toggleIsFetching, unFollow} from "./users-reducer";
 
 export type PostsType = {
     id: number
@@ -23,9 +16,10 @@ export type MessagesType = {
     message: string
 
 }
-export type ProfilePageType = {
+export type ProfilePageTypes = {
     posts: Array<PostsType>
     newPostText: string
+    profile:null
 }
 export type DialogPageType = {
     dialogs: Array<DialogsType>
@@ -33,7 +27,7 @@ export type DialogPageType = {
     newMessage: string
 }
 export type RootStateType = {
-    profilePage: ProfilePageType
+    profilePage: ProfilePageTypes
     dialogPage: DialogPageType
 }
 
@@ -64,16 +58,17 @@ export type StoreType = {
 }
 
 export type ActionsTypes =
-    ReturnType<typeof addPostActionCreator>
-    | ReturnType<typeof UpdateNewPostActionCreator>
+    ReturnType<typeof addPost>
+    | ReturnType<typeof updateNewPost>
     | ReturnType<typeof AddMessageActionCreator>
     | ReturnType<typeof UpdateNewMessageActionCreator>
-    | ReturnType<typeof FollowAC>
-    | ReturnType<typeof UnfollowAC>
-    | ReturnType<typeof SetUsersAC>
-    | ReturnType<typeof SetCurrentPageAC>
-    | ReturnType<typeof SetTotalUserCountAC>
-    | ReturnType<typeof ToggleIsFetchingAC>
+    | ReturnType<typeof follow>
+    | ReturnType<typeof unFollow>
+    | ReturnType<typeof setUsers>
+    | ReturnType<typeof setCurrentPage>
+    | ReturnType<typeof setTotalUserCount>
+    | ReturnType<typeof toggleIsFetching>
+    | ReturnType<typeof setUserProfile>
 
 
 let store: StoreType = {
@@ -83,8 +78,10 @@ let store: StoreType = {
                 {id: 0, message: 'Hi, how are you?', likesCount: 15},
                 {id: 1, message: "It's my first post", likesCount: 17}
             ],
-            newPostText: ""
+            newPostText: "",
+            profile:null
         },
+
         dialogPage: {
             dialogs: [
                 {id: 1, name: 'Dimych'},

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {ChangeEvent,MouseEvent } from "react";
 import Post from "./Post/Post";
 import s from "./MyPosts.module.css"
 import {ProfilePageType} from "../../../redux/profile-reducer";
@@ -7,7 +7,7 @@ import {ProfilePageType} from "../../../redux/profile-reducer";
 type MyPostsPageType = {
     profilePage:ProfilePageType
     addPost: () => void
-    updateNewPostText:(text:React.ChangeEvent<HTMLTextAreaElement>)=>void
+    updateNewPost:(newPostText:ChangeEvent<HTMLTextAreaElement>)=>void
 }
 
 
@@ -20,12 +20,13 @@ class MyPostsC extends React.Component<MyPostsPageType> {
          this.props.addPost()
     }
 
-     onAddChange = (text: React.ChangeEvent<HTMLTextAreaElement>) => {
-         this.props.updateNewPostText(text)
+     onAddChange = (newPostText:React.ChangeEvent<HTMLTextAreaElement>) => {
+         this.props.updateNewPost(newPostText)
     }
 
 
     render() {
+
         return (
             <div className={s.postsBlock}>
                 <h3>My posts</h3>
