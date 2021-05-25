@@ -4,11 +4,13 @@ import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import {ProfileType} from "../../redux/profile-reducer";
 
 type ProfilePropsType={
-    profile:Array<ProfileType>
+    profile:any
 }
 
 
+
 function Profile(props:ProfilePropsType) {
+    debugger
     return (
         <div>
             <ProfileInfo profile={props.profile}/>

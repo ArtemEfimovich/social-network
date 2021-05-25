@@ -1,7 +1,8 @@
-import profileReducer, {addPost, setUserProfile, updateNewPost} from "./profile-reducer";
-import dialogReducer, {AddMessageActionCreator, UpdateNewMessageActionCreator} from "./dialogs-reducer";
+import {addPost, setUserProfile, updateNewPost} from "./profile-reducer";
+import {AddMessageActionCreator, UpdateNewMessageActionCreator} from "./dialogs-reducer";
 import {follow, setCurrentPage, setTotalUserCount, setUsers, toggleIsFetching, unFollow} from "./users-reducer";
 
+/*
 export type PostsType = {
     id: number
     message: string
@@ -19,7 +20,7 @@ export type MessagesType = {
 export type ProfilePageTypes = {
     posts: Array<PostsType>
     newPostText: string
-    profile:null
+    profile:Array<ProfilesType>
 }
 export type DialogPageType = {
     dialogs: Array<DialogsType>
@@ -30,6 +31,7 @@ export type RootStateType = {
     profilePage: ProfilePageTypes
     dialogPage: DialogPageType
 }
+*/
 
 
 type AddPostActionType = {
@@ -49,13 +51,13 @@ type UpdateNewMessageActionType = {
     newMessage: string
 }
 
-export type StoreType = {
+/*export type StoreType = {
     _state: RootStateType
     subscribe: (observer: (state: RootStateType) => void) => void
     _callSubscriber: (state: RootStateType) => void
     getState: () => RootStateType
     dispatch: (action: ActionsTypes) => void
-}
+}*/
 
 export type ActionsTypes =
     ReturnType<typeof addPost>
@@ -71,6 +73,9 @@ export type ActionsTypes =
     | ReturnType<typeof setUserProfile>
 
 
+const store= ()=>{}
+
+/*
 let store: StoreType = {
     _state: {
         profilePage: {
@@ -79,7 +84,7 @@ let store: StoreType = {
                 {id: 1, message: "It's my first post", likesCount: 17}
             ],
             newPostText: "",
-            profile:null
+            profile:[]
         },
 
         dialogPage: {
@@ -114,6 +119,7 @@ let store: StoreType = {
 
     }
 }
+*/
 
 
 export default store;
