@@ -1,6 +1,7 @@
 import {addPost, setUserProfile, updateNewPost} from "./profile-reducer";
 import {AddMessageActionCreator, UpdateNewMessageActionCreator} from "./dialogs-reducer";
 import {follow, setCurrentPage, setTotalUserCount, setUsers, toggleIsFetching, unFollow} from "./users-reducer";
+import {setUserData} from "./auth-reducer";
 
 /*
 export type PostsType = {
@@ -71,9 +72,11 @@ export type ActionsTypes =
     | ReturnType<typeof setTotalUserCount>
     | ReturnType<typeof toggleIsFetching>
     | ReturnType<typeof setUserProfile>
+    | ReturnType<typeof setUserData>
 
 
-const store= ()=>{}
+const store = () => {
+}
 
 /*
 let store: StoreType = {
