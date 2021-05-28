@@ -1,40 +1,48 @@
-import {ActionsTypes} from "./store";
+import {AppStateType} from "./redux-store";
+import {Dispatch} from "redux";
+import axios from "axios";
+import {usersApi} from "../api/api";
+
+type ActionsTypes =
+    ReturnType<typeof addPost>
+    | ReturnType<typeof updateNewPost>
+    | ReturnType<typeof setUserProfile>
 
 
-export type ProfilePageType ={
+export type ProfilePageType = {
     posts: Array<PostsType>
     newPostText: string
-    profile:any
+    profile: any
 }
 
-export type PostsType ={
+export type PostsType = {
     id: number
     message: string
     likesCount: number
 }
 
-export type ProfileType={
-    aboutMe:string
-    contacts:ContactsType
+export type ProfileType = {
+    aboutMe: string
+    contacts: ContactsType
     fullName: string
     lookingForAJob: boolean
     lookingForAJobDescription: string
-    photos:PhotoType
+    photos: PhotoType
     userId: number
 }
 
-type ContactsType={
+type ContactsType = {
     facebook: string
     github: string
     instagram: string
 }
-type PhotoType ={
-    small:string
-    large:string
+type PhotoType = {
+    small: string
+    large: string
 }
 
 
-let initialState: ProfilePageType= {
+let initialState: ProfilePageType = {
     posts: [
         {id: 0, message: 'Hi, how are you?', likesCount: 15},
         {id: 1, message: "It's my first post", likesCount: 17}
@@ -45,31 +53,30 @@ let initialState: ProfilePageType= {
 
 }
 
-const profileReducer = (state: ProfilePageType = initialState , action: ActionsTypes): ProfilePageType => {
+const profileReducer = (state: ProfilePageType = initialState, action: ActionsTypes): ProfilePageType => {
 
     switch (action.type) {
         case 'ADD-POST':
-            return{
+            return {
                 ...state,
-                posts: [...state.posts,{id: 3, message: action.postMessage, likesCount: 0} ]
+                posts: [...state.posts, {id: 3, message: action.postMessage, likesCount: 0}]
             }
         case 'UPDATE-NEW-POST':
-            return{
+            return {
                 ...state,
                 newPostText: action.newPostText
             }
         case 'SET-USER-PROFILE':
-        return {
-            ...state,
-            profile: action.profile
-        }
+            return {
+                ...state,
+                profile: action.profile
+            }
         default:
             return state
 
     }
 
 }
-
 
 
 export const addPost = (postMessage: string) => {
@@ -86,12 +93,26 @@ export const updateNewPost = (newPostText: string) => {
     } as const
 }
 
-export const setUserProfile = (profile:any)=>{
-    return{
+export const setUserProfile = (profile: any) => {
+    return {
         type: 'SET-USER-PROFILE',
         profile
-    }as const
+    } as const
 }
+
+
+type GetStateType = () => AppStateType
+type DispatchType = Dispatch<ActionsTypes>
+
+export const getUserProfile =(userId:number)=>{
+    return (dispatch:DispatchType,getStateType:GetStateType)=>{
+        usersApi.getProfile(userId).then(data => {
+            dispatch(setUserProfile(data))
+        })
+    }
+}
+
+
 
 
 export default profileReducer;

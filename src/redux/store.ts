@@ -1,6 +1,14 @@
 import {addPost, setUserProfile, updateNewPost} from "./profile-reducer";
 import {AddMessageActionCreator, UpdateNewMessageActionCreator} from "./dialogs-reducer";
-import {follow, setCurrentPage, setTotalUserCount, setUsers, toggleIsFetching, unFollow} from "./users-reducer";
+import {
+    follow,
+    setCurrentPage,
+    setTotalUserCount,
+    setUsers,
+    toggleFollowingProgress,
+    toggleIsFetching,
+    unFollow
+} from "./users-reducer";
 import {setUserData} from "./auth-reducer";
 
 /*
@@ -34,7 +42,7 @@ export type RootStateType = {
 }
 */
 
-
+/*
 type AddPostActionType = {
     type: 'ADD-POST'
     postMessage: string
@@ -50,7 +58,7 @@ type AddMessageActionType = {
 type UpdateNewMessageActionType = {
     type: 'UPDATE-NEW-MESSAGE'
     newMessage: string
-}
+}*/
 
 /*export type StoreType = {
     _state: RootStateType
@@ -59,7 +67,7 @@ type UpdateNewMessageActionType = {
     getState: () => RootStateType
     dispatch: (action: ActionsTypes) => void
 }*/
-
+/*
 export type ActionsTypes =
     ReturnType<typeof addPost>
     | ReturnType<typeof updateNewPost>
@@ -73,10 +81,8 @@ export type ActionsTypes =
     | ReturnType<typeof toggleIsFetching>
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setUserData>
+    | ReturnType<typeof toggleFollowingProgress>*/
 
-
-const store = () => {
-}
 
 /*
 let store: StoreType = {
@@ -124,5 +130,3 @@ let store: StoreType = {
 }
 */
 
-
-export default store;

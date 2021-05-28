@@ -20,9 +20,9 @@ class MyPostsC extends React.Component<MyPostsPageType> {
          this.props.addPost(event)
     }
 
-     onAddChange = (newPostText:React.ChangeEvent<HTMLTextAreaElement>) => {
-         this.props.updateNewPost(newPostText)
-    }
+     onAddChange = ((e:ChangeEvent<HTMLTextAreaElement>)=> {
+         this.props.updateNewPost(e)
+    })
 
 
     render() {

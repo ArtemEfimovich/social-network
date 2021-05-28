@@ -1,4 +1,5 @@
-import {ActionsTypes} from "./store";
+type ActionsTypes = ReturnType<typeof AddMessageActionCreator>
+    | ReturnType<typeof UpdateNewMessageActionCreator>
 
 
 export type DialogsPageType = {
@@ -38,16 +39,16 @@ const dialogReducer = (state: DialogsPageType = initialState, action: ActionsTyp
 
     switch (action.type) {
         case 'ADD-MESSAGE':
-            return{
+            return {
                 ...state,
-                messages: [...state.messages, { id: 3, message: action.message}]
+                messages: [...state.messages, {id: 3, message: action.message}]
             }
 
         case 'UPDATE-NEW-MESSAGE':
             return {
                 ...state,
                 newMessage: action.newMessage
-        }
+            }
 
         default:
             return state
