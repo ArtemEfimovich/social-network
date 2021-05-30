@@ -2,12 +2,14 @@ import React, {ChangeEvent} from 'react';
 import {AddMessageActionCreator, DialogsPageType, UpdateNewMessageActionCreator} from "../../redux/dialogs-reducer";
 import {AppStateType} from "../../redux/redux-store";
 import {connect} from "react-redux";
-import {Dispatch} from 'redux';
+import {compose, Dispatch} from 'redux';
 import DialogsC from "./DialogsC";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 
 type MapStatePropsType={
     dialogPage: DialogsPageType
+
 }
 type MapDispatchPropsType={
     addMessage: (message: string) => void
@@ -17,7 +19,8 @@ type MapDispatchPropsType={
 
 const mapStateToProps = (state:AppStateType):MapStatePropsType => {
     return {
-        dialogPage: state.dialogPage
+        dialogPage: state.dialogPage,
+
     }
 }
 const mapDispatchToProps = (dispatch:Dispatch):MapDispatchPropsType => {
@@ -37,6 +40,9 @@ const mapDispatchToProps = (dispatch:Dispatch):MapDispatchPropsType => {
 
 
 // @ts-ignore
-const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(DialogsC)
+const DialogsContainer =compose<React.ComponentType>(
+    withAuthRedirect,
+    connect(mapStateToProps, mapDispatchToProps)
+)(DialogsC)
 
 export default DialogsContainer

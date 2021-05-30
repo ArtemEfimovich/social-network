@@ -8,7 +8,7 @@ import {DialogsPageType} from '../../redux/dialogs-reducer';
 type DialogPageTypes = {
     dialogPage: DialogsPageType
     addMessage: () => void
-    updateNewMessageText: (text: React.ChangeEvent<HTMLTextAreaElement>) => void
+    updateNewMessageText: (text: string) => void
 }
 
 
@@ -20,7 +20,8 @@ class DialogsC extends React.Component<DialogPageTypes> {
          this.props.addMessage()
     }
 
-     onAddChange = (text: React.ChangeEvent<HTMLTextAreaElement>) => {
+     onAddChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+         const text = e.currentTarget.value
          this.props.updateNewMessageText(text)
     }
 
@@ -48,11 +49,6 @@ class DialogsC extends React.Component<DialogPageTypes> {
         )
     }
 }
-
-
-
-
-
 
 
 

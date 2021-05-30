@@ -3,12 +3,14 @@ import Message from "./Message/Message";
 import DialogItem from "./DialogItem/DialogItem";
 import s from "./Dialogs.module.css"
 import {DialogsPageType} from '../../redux/dialogs-reducer';
+import {Redirect} from "react-router-dom";
 
 
 type DialogPageTypes = {
     dialogPage: DialogsPageType
     addMessage: () => void
     updateNewMessageText: (text: React.ChangeEvent<HTMLTextAreaElement>) => void
+    isAuth:boolean
 }
 
 function Dialogs(props: DialogPageTypes) {
@@ -25,6 +27,7 @@ function Dialogs(props: DialogPageTypes) {
 
 
     return (
+
         <div className={s.dialogs}>
             <div className={s.dialogsItems}>
                 {dialogsElements}

@@ -2,6 +2,7 @@ import React, {ChangeEvent,MouseEvent } from "react";
 import Post from "./Post/Post";
 import s from "./MyPosts.module.css"
 import {ProfilePageType} from "../../../redux/profile-reducer";
+import { Redirect } from "react-router-dom";
 
 
 type MyPostsPageType = {
@@ -25,8 +26,8 @@ class MyPostsC extends React.Component<MyPostsPageType> {
     })
 
 
-    render() {
 
+    render() {
         return (
             <div className={s.postsBlock}>
                 <h3>My posts</h3>

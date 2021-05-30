@@ -7,12 +7,13 @@ import MyPostsC from "./MyPostsC";
 
 type MapStatePropsType = {
     profilePage: ProfilePageType
+
 }
 
 
 const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
-        profilePage: state.profilePage
+        profilePage: state.profilePage,
     }
 }
 
