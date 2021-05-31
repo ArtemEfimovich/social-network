@@ -1,9 +1,8 @@
 import React from 'react';
 import Header from "./Header";
 import {connect} from "react-redux";
-import {DataType, getUserData, setUserData} from "../../redux/auth-reducer";
+import {getUserData} from "../../redux/auth-reducer";
 import {AppStateType} from "../../redux/redux-store";
-import {usersApi} from "../../api/api";
 
 
 type HeaderContainerProps=MapDispatchPropsType & MapStateToPropsType

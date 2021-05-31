@@ -1,11 +1,11 @@
 import React from 'react';
-import s from './ProfileInfo.module.css'
 import Preloader from "../../common/Preloader/Preloader";
-import {ProfileType} from "../../../redux/profile-reducer";
-import { NavLink } from 'react-router-dom';
+import ProfileStatus from "./ProfileStatus";
 
 type ProfileInfoType = {
     profile: any
+    status:string
+    updateStatus: (status: string) => void
 }
 
 
@@ -15,12 +15,17 @@ const ProfileInfo = (props: ProfileInfoType) => {
     }
     return (
         <div>
-            <div className={s.img}>
+           {/* <div className={s.img}>
                 <img
                     src="https://images.unsplash.com/photo-1500964757637-c85e8a162699?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1078&q=80"/>
-            </div>
+            </div>*/}
             <div>
                 <img src={props.profile.photos.large}/>
+            </div>
+            <div>
+                <ProfileStatus status={props.status}
+                updateStatus={props.updateStatus}
+                />
             </div>
             <div>
                 {props.profile.contacts.github}
@@ -28,6 +33,7 @@ const ProfileInfo = (props: ProfileInfoType) => {
             <div>
                 {props.profile.contacts.vk}
             </div>
+
         </div>
     )
 }

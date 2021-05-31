@@ -1,18 +1,20 @@
 import {AppStateType} from "./redux-store";
 import {Dispatch} from "redux";
-import axios from "axios";
-import {usersApi} from "../api/api";
+import {profileApi} from "../api/api";
 
 type ActionsTypes =
     ReturnType<typeof addPost>
     | ReturnType<typeof updateNewPost>
     | ReturnType<typeof setUserProfile>
+    | ReturnType<typeof setStatus>
+
 
 
 export type ProfilePageType = {
     posts: Array<PostsType>
     newPostText: string
     profile: any
+    status: string
 }
 
 export type PostsType = {
@@ -48,9 +50,8 @@ let initialState: ProfilePageType = {
         {id: 1, message: "It's my first post", likesCount: 17}
     ],
     newPostText: "cdscdscsdc",
-    profile: null
-
-
+    profile: null,
+    status: ""
 }
 
 const profileReducer = (state: ProfilePageType = initialState, action: ActionsTypes): ProfilePageType => {
@@ -70,6 +71,11 @@ const profileReducer = (state: ProfilePageType = initialState, action: ActionsTy
             return {
                 ...state,
                 profile: action.profile
+            }
+        case "SET-STATUS":
+            return {
+                ...state,
+                status:action.status
             }
         default:
             return state
@@ -100,19 +106,42 @@ export const setUserProfile = (profile: any) => {
     } as const
 }
 
+export const setStatus = (status: string) => {
+    return {
+        type: 'SET-STATUS',
+        status
+    } as const
+}
+
 
 type GetStateType = () => AppStateType
 type DispatchType = Dispatch<ActionsTypes>
 
-export const getUserProfile =(userId:number)=>{
-    return (dispatch:DispatchType,getStateType:GetStateType)=>{
-        usersApi.getProfile(userId).then(data => {
+export const getUserProfile = (userId: number) => {
+    return (dispatch: DispatchType, getStateType: GetStateType) => {
+        profileApi.getProfile(userId).then(data => {
             dispatch(setUserProfile(data))
         })
     }
 }
 
+export const getStatus = (userId: number) => {
+    return (dispatch: DispatchType, getStateType: GetStateType) => {
+        profileApi.getStatus(userId).then(data => {
+            dispatch(setStatus(data))
+        })
+    }
+}
 
+export const updateStatus = (status: string) => {
+    return (dispatch: DispatchType, getStateType: GetStateType) => {
+        profileApi.updateStatus(status).then(data=> {
+            if(data.resultCode === 0) {
+                dispatch(setStatus(status))
+            }
+        })
+    }
+}
 
 
 export default profileReducer;

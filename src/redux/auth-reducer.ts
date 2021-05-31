@@ -1,6 +1,6 @@
 import {AppStateType} from "./redux-store";
 import {Dispatch} from "redux";
-import {usersApi} from "../api/api";
+import {authApi, usersApi} from "../api/api";
 
 type ActionsTypes = ReturnType<typeof setUserData>
 
@@ -52,7 +52,7 @@ type DispatchType = Dispatch<ActionsTypes>
 
 export const getUserData = () => {
     return (dispatch: DispatchType, getState: GetStateType) => {
-        usersApi.getAuth().then(data => {
+        authApi.getAuth().then(data => {
             if (data.resultCode === 0) {
                 dispatch(setUserData(data.data))
             }

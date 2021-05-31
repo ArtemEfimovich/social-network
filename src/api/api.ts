@@ -17,27 +17,47 @@ export const usersApi = {
                 return response.data
             })
     },
-    getAuth(){
-        return instance.get(`auth/me`)
-            .then(response =>{
-                return response.data
-            })
-    },
-    setFollow(userId: number){
+    setFollow(userId: number) {
         return instance.post(`follow/${userId}`)
-            .then(response =>{
+            .then(response => {
                 return response.data
             })
     },
-    setUnFollow(userId: number){
+    setUnFollow(userId: number) {
         return instance.delete(`follow/${userId}`)
-            .then(response =>{
+            .then(response => {
                 return response.data
             })
     },
-    getProfile(userId:number){
+}
+
+
+export const profileApi = {
+    getProfile(userId: number) {
         return instance.get(`profile/` + userId)
+            .then(response => {
+                return response.data
+            })
+    },
+    getStatus(userId: number) {
+        return instance.get(`profile/status/` + userId)
+            .then(response => {
+                return response.data
+            })
+    },
+    updateStatus(status: string){
+        return instance.put(`profile/status`, {status})
             .then(response =>{
+                return response.data
+            }
+        )
+    }
+
+}
+export const authApi = {
+    getAuth() {
+        return instance.get(`auth/me`)
+            .then(response => {
                 return response.data
             })
     }
