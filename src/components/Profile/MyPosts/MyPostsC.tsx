@@ -8,7 +8,7 @@ import { Redirect } from "react-router-dom";
 type MyPostsPageType = {
     profilePage:ProfilePageType
     addPost: (event:MouseEvent<HTMLElement>) => void
-    updateNewPost:(newPostText:ChangeEvent<HTMLTextAreaElement>)=>void
+    updateNewPost:(newPostText:string)=>void
 }
 
 
@@ -21,9 +21,10 @@ class MyPostsC extends React.Component<MyPostsPageType> {
          this.props.addPost(event)
     }
 
-     onAddChange = ((e:ChangeEvent<HTMLTextAreaElement>)=> {
-         this.props.updateNewPost(e)
-    })
+     onAddChange = (e: React.ChangeEvent<HTMLTextAreaElement>)=> {
+         let newPostText = e.target.value;
+         this.props.updateNewPost(newPostText)
+    }
 
 
 
