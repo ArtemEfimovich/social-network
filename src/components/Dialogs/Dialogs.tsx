@@ -5,15 +5,20 @@ import s from "./Dialogs.module.css"
 import {DialogsPageType} from '../../redux/dialogs-reducer';
 import {Field, reduxForm} from "redux-form";
 import {Redirect} from "react-router-dom";
+import {TextArea} from "../common/FormsControls/TextArea";
+import {maxLengthCreator, required} from "../../utils/validators/validators";
 
 
 type DialogPageTypes = {
-   sendMessage: (message:string)=>void
+    sendMessage: (message: string) => void
     dialogPage: DialogsPageType
     isAuth: boolean
 }
 
-function Dialogs(props: DialogPageTypes) {
+
+const maxLength = maxLengthCreator(200)
+
+const Dialogs = (props: DialogPageTypes) => {
     const dialogsElements = props.dialogPage.dialogs.map(d => <DialogItem name={d.name} id={d.id} key={d.id}/>);
     const messagesElements = props.dialogPage.messages.map(m => <Message message={m.message} id={m.id} key={m.id}/>);
 
@@ -21,18 +26,15 @@ function Dialogs(props: DialogPageTypes) {
     if (props.isAuth) return <Redirect to={"/login"}/>
 
 
-    let onSendMessageClick = (message: string) =>{
+    let onSendMessageClick = (message: string) => {
         props.sendMessage(message)
     }
 
 
-    let addNewMessage =(values:any)=>{
+    let addNewMessage = (values: any) => {
         onSendMessageClick(values.newMessageBody)
 
     }
-
-
-
 
 
     return (
@@ -55,7 +57,9 @@ const AddMessageForm = (props: any) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
-                <Field component='textarea' name='newMessageBody' placeholder='Enter your message'/>
+                <Field component={TextArea} name='newMessageBody' placeholder='Enter your message'
+                        validate={[required,maxLength]}
+                />
             </div>
             <div>
                 <button>
