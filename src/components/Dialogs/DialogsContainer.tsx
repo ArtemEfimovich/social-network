@@ -1,9 +1,9 @@
-import React, {ChangeEvent} from 'react';
-import {AddMessageActionCreator, DialogsPageType, UpdateNewMessageActionCreator} from "../../redux/dialogs-reducer";
+import React from 'react';
+import {AddMessageActionCreator, DialogsPageType} from "../../redux/dialogs-reducer";
 import {AppStateType} from "../../redux/redux-store";
 import {connect} from "react-redux";
 import {compose, Dispatch} from 'redux';
-import DialogsC from "./DialogsC";
+import Dialogs from "./Dialogs";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 
@@ -11,9 +11,8 @@ type MapStatePropsType={
     dialogPage: DialogsPageType
 
 }
-type MapDispatchPropsType={
-    addMessage: (message: string) => void
-    updateNewMessageText:(e: ChangeEvent<HTMLTextAreaElement>)=>void
+type MapDispatchPropsType= {
+    sendMessage: (message: string) => void
 }
 
 
@@ -26,23 +25,18 @@ const mapStateToProps = (state:AppStateType):MapStatePropsType => {
 const mapDispatchToProps = (dispatch:Dispatch):MapDispatchPropsType => {
     return {
 
-        addMessage: (message: string) => {
+        sendMessage: (message: string) => {
             dispatch(AddMessageActionCreator(message))
-            dispatch(UpdateNewMessageActionCreator(''))
         },
-        updateNewMessageText: (text: ChangeEvent<HTMLTextAreaElement>) => {
-            dispatch(UpdateNewMessageActionCreator(text.currentTarget.value))
-        }
+
     }
 }
 
 
 
-
-// @ts-ignore
 const DialogsContainer =compose<React.ComponentType>(
     withAuthRedirect,
     connect(mapStateToProps, mapDispatchToProps)
-)(DialogsC)
+)(Dialogs)
 
 export default DialogsContainer

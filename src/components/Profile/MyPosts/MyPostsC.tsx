@@ -1,8 +1,7 @@
-import React, {ChangeEvent,MouseEvent } from "react";
+import React, {MouseEvent} from "react";
 import Post from "./Post/Post";
 import s from "./MyPosts.module.css"
 import {ProfilePageType} from "../../../redux/profile-reducer";
-import { Redirect } from "react-router-dom";
 
 
 type MyPostsPageType = {

@@ -3,27 +3,36 @@ import Message from "./Message/Message";
 import DialogItem from "./DialogItem/DialogItem";
 import s from "./Dialogs.module.css"
 import {DialogsPageType} from '../../redux/dialogs-reducer';
+import {Field, reduxForm} from "redux-form";
 import {Redirect} from "react-router-dom";
 
 
 type DialogPageTypes = {
+   sendMessage: (message:string)=>void
     dialogPage: DialogsPageType
-    addMessage: () => void
-    updateNewMessageText: (text: React.ChangeEvent<HTMLTextAreaElement>) => void
-    isAuth:boolean
+    isAuth: boolean
 }
 
 function Dialogs(props: DialogPageTypes) {
     const dialogsElements = props.dialogPage.dialogs.map(d => <DialogItem name={d.name} id={d.id} key={d.id}/>);
     const messagesElements = props.dialogPage.messages.map(m => <Message message={m.message} id={m.id} key={m.id}/>);
 
-    const onAddMessage = () => {
-        props.addMessage()
+
+    if (props.isAuth) return <Redirect to={"/login"}/>
+
+
+    let onSendMessageClick = (message: string) =>{
+        props.sendMessage(message)
     }
 
-    const onAddChange = (text: React.ChangeEvent<HTMLTextAreaElement>) => {
-        props.updateNewMessageText(text)
+
+    let addNewMessage =(values:any)=>{
+        onSendMessageClick(values.newMessageBody)
+
     }
+
+
+
 
 
     return (
@@ -35,18 +44,28 @@ function Dialogs(props: DialogPageTypes) {
             <div className={s.messages}>
                 {messagesElements}
             </div>
-            <div>
-                <textarea onChange={onAddChange} value={props.dialogPage.newMessage}/>
-            </div>
-            <div>
-                <button onClick={onAddMessage}>
-                    Send
-                </button>
-            </div>
+            <AddMessageFormRedux onSubmit={addNewMessage}/>
 
         </div>
     )
 }
 
+
+const AddMessageForm = (props: any) => {
+    return (
+        <form onSubmit={props.handleSubmit}>
+            <div>
+                <Field component='textarea' name='newMessageBody' placeholder='Enter your message'/>
+            </div>
+            <div>
+                <button>
+                    Send
+                </button>
+            </div>
+        </form>
+    )
+}
+
+const AddMessageFormRedux = reduxForm({form: 'dialogAddMessageForm'})(AddMessageForm)
 
 export default Dialogs

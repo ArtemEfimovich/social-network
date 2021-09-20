@@ -1,8 +1,8 @@
 import React from "react";
-import {addPost, ProfilePageType, updateNewPost} from "../../../redux/profile-reducer";
+import {addPost, ProfilePageType} from "../../../redux/profile-reducer";
 import {AppStateType} from "../../../redux/redux-store";
 import {connect} from "react-redux";
-import MyPostsC from "./MyPostsC";
+import MyPosts from "./MyPosts";
 
 
 type MapStatePropsType = {
@@ -20,5 +20,4 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
 
 
 
-// @ts-ignore
-export default connect(mapStateToProps, {addPost,updateNewPost})(MyPostsC)
+export default connect(mapStateToProps, {addPost})(MyPosts)
