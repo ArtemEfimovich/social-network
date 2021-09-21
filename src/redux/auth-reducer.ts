@@ -1,38 +1,32 @@
 import {AppStateType} from "./redux-store";
 import {Dispatch} from "redux";
-import {authApi, usersApi} from "../api/api";
+import {authApi, LoginParamsType, usersApi} from "../api/api";
+import {stopSubmit} from "redux-form";
 
 type ActionsTypes = ReturnType<typeof setUserData>
 
 
 export type AuthType = {
-    userId: number
-    email: string
-    isAuth: boolean
-    login: string
-}
-
-export type DataType = {
-    id: number
-    email: string
+    userId: number | null;
+    email: string |null;
+    isAuth: boolean;
     login: string
 }
 
 
 let initialState: AuthType = {
-    userId: 2,
-    email: 'bla@bla.bla',
+    userId: null,
+    email: null,
     isAuth: false,
     login: ''
 }
 
-export const authReducer = (state: AuthType = initialState, action: ActionsTypes): AuthType => {
+export const authReducer = (state: AuthType = initialState, action: ActionsTypes) => {
     switch (action.type) {
         case "SET_USER_DATA":
             return {
                 ...state,
-                ...action.data,
-                isAuth: true
+                ...action.payload,
             }
         default:
             return state
@@ -40,25 +34,55 @@ export const authReducer = (state: AuthType = initialState, action: ActionsTypes
 }
 
 
-export const setUserData = (data: DataType,) => {
+export const setUserData = (userId :number, email:string,login:string, isAuth:boolean) => {
     return {
         type: 'SET_USER_DATA',
-        data
+        payload:{userId,email,login,isAuth}
     } as const
 }
 
 type GetStateType = () => AppStateType
-type DispatchType = Dispatch<ActionsTypes>
+type DispatchType = Dispatch<any>
 
 export const getUserData = () => {
     return (dispatch: DispatchType, getState: GetStateType) => {
         authApi.getAuth().then(data => {
             if (data.resultCode === 0) {
-                dispatch(setUserData(data.data))
+                let {id, email,login} = data.data
+                dispatch(setUserData(id, email,login,true))
             }
         })
     }
 }
+
+export const login = (email:string, password:string,rememberMe:boolean) => {
+    return (dispatch: DispatchType, getState: GetStateType) => {
+        authApi.login(email,password,rememberMe).then(res => {
+            if (res.data.resultCode === 0) {
+                dispatch(getUserData())
+            }else {
+                let message = res.data.messages.length > 0 ? res.data.messages[0]: "some error"
+                dispatch(stopSubmit("login", {_error:message}))
+            }
+        })
+    }
+}
+
+
+export const logout = () => {
+    return (dispatch: DispatchType, getState: GetStateType) => {
+        authApi.logout().then(res => {
+            if (res.data.resultCode === 0) {
+                dispatch(setUserData(0,'','',false))
+            }
+        })
+    }
+}
+
+
+
+
+
 
 
 export default authReducer;

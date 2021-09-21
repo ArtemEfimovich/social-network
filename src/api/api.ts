@@ -10,6 +10,21 @@ const instance = axios.create({
 })
 
 
+export type ResponseType<D = {}> = {
+    resultCode: number
+    messages: Array<string>
+    data: D
+}
+
+export type LoginParamsType={
+    email: string
+    password: string
+    rememberMe: boolean | false
+    captcha?: string
+}
+
+
+
 export const usersApi = {
     setUsers(currentPage: number = 1, pageSize: number = 10) {
         return instance.get(`users?page=${currentPage}&count=${pageSize}`)
@@ -60,6 +75,12 @@ export const authApi = {
             .then(response => {
                 return response.data
             })
+    },
+    login(email: string, password: string,rememberMe: boolean= false ){
+        return instance.post('auth/login',{email,password,rememberMe})
+    },
+    logout(){
+        return instance.delete('auth/login')
     }
 }
 
