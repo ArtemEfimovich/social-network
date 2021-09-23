@@ -46,7 +46,7 @@ type DispatchType = Dispatch<any>
 
 export const getUserData = () => {
     return (dispatch: DispatchType, getState: GetStateType) => {
-        authApi.getAuth().then(data => {
+       return authApi.getAuth().then(data => {
             if (data.resultCode === 0) {
                 let {id, email,login} = data.data
                 dispatch(setUserData(id, email,login,true))

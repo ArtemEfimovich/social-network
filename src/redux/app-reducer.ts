@@ -37,12 +37,16 @@ export const setInitialized = () => {
 }
 
 type GetStateType = () => AppStateType
-type DispatchType = Dispatch<any>
+
 
 export const initializeApp = () => {
-    return (dispatch: DispatchType, getState: GetStateType) => {
-       dispatch(getUserData())
-       dispatch(setInitialized())
+    return (dispatch:any,getState:GetStateType) => {
+        let promise = dispatch(getUserData())
+        Promise.all([promise]).then(() => {
+            dispatch(setInitialized())
+        })
+
+
         }
 }
 
