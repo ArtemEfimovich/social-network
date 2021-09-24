@@ -150,11 +150,11 @@ type GetStateType = () => AppStateType
 type DispatchType = Dispatch<ActionsTypes>
 
 
-export const getUsers =(currentPage:number,pageSize:number)=>{
+export const getUsers =(page:number,pageSize:number)=>{
     return (dispatch:DispatchType, getState:GetStateType)=>{
-        dispatch(setCurrentPage(currentPage))
+        dispatch(setCurrentPage(page))
         dispatch(toggleIsFetching(true))
-        usersApi.setUsers(currentPage,pageSize).then(data => {
+        usersApi.setUsers(page,pageSize).then(data => {
             dispatch(toggleIsFetching(false))
             dispatch(setUsers(data.items))
             dispatch(setTotalUserCount(data.totalCount))
