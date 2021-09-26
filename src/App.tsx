@@ -4,7 +4,7 @@ import Navbar from "./components/Navbar/Navbar";
 import Music from "./components/Music/Music";
 import News from "./components/News/News";
 import Settings from "./components/Settings/Settings";
-import {BrowserRouter, Route} from "react-router-dom";
+import {Route} from "react-router-dom";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
@@ -37,7 +37,6 @@ class App extends React.Component<AppProps> {
         return <Preloader/>
 
         return (
-            <BrowserRouter>
                 <div className="app-wrapper">
                     <HeaderContainer/>
                     <Navbar/>
@@ -51,7 +50,6 @@ class App extends React.Component<AppProps> {
                         <Route path="/login" render={() => <Login/>}/>
                     </div>
                 </div>
-            </BrowserRouter>
         );
     }
 }

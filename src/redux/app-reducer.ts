@@ -1,7 +1,4 @@
 import {AppStateType} from "./redux-store";
-import {Dispatch} from "redux";
-import {authApi} from "../api/api";
-import {stopSubmit} from "redux-form";
 import {getUserData} from "./auth-reducer";
 
 type ActionsTypes = ReturnType<typeof setInitialized>

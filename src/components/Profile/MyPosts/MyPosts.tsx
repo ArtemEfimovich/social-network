@@ -7,7 +7,6 @@ import {maxLengthCreator, required} from "../../../utils/validators/validators";
 import {TextArea} from "../../common/FormsControls/TextArea";
 
 
-
 type MyPostsPageType = {
     profilePage: ProfilePageType
     addPost: (postMessage: string) => void
