@@ -39,9 +39,9 @@ function User(
                                   }}>Unfollow</button>
                         : <button disabled={followingInProgress.some(id => id === user.id)}
                                   onClick={() => {{follow(user.id)}
-                                  }}>Follow</button>}</div>
+                                  }}>Follow</button>}
+                    </div>
                 </span>
-                <span>
                     <span>
                         <div>{user.name}</div>
                         <div>{user.status}</div>
@@ -50,7 +50,6 @@ function User(
                         <div>{"user.location.country"}</div>
                         <div>{"user.location.city"}</div>
                     </span>
-                </span>
             </div>
         </div>
     )
