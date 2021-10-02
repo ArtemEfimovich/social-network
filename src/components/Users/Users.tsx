@@ -32,9 +32,11 @@ function Users(
 
         <div>
             <Paginator currentPage={currentPage}
-                       totalUserCount={totalUserCount}
+                       totalItemsCount={totalUserCount}
                        pageSize={pageSize}
-                       onPageChanged={onPageChanged}/>
+                       onPageChanged={onPageChanged}
+                        portionSize={10}
+            />
             <div>
                 {users.map(u => <User user={u} key={u.id}
                                       follow={follow}
