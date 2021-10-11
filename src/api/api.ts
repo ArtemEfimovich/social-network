@@ -102,5 +102,15 @@ export const authApi = {
 }
 
 
+export const securityApi = {
+    getCaptchaUrl() {
+        return instance.get(`security/get-captcha-url`)
+            .then(response => {
+                return response.data
+            })
+    }
+}
+
+
 
 
