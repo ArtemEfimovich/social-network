@@ -7,7 +7,7 @@ type ActionsTypes = ReturnType<typeof setUserData>
 
 
 export type AuthType = {
-    userId: number | null;
+    userId: number  ;
     email: string |null;
     isAuth: boolean;
     login: string
@@ -15,7 +15,7 @@ export type AuthType = {
 
 
 let initialState: AuthType = {
-    userId: null,
+    userId: 0,
     email: null,
     isAuth: false,
     login: ''

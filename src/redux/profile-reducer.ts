@@ -1,13 +1,15 @@
 import {AppStateType} from "./redux-store";
 import {Dispatch} from "redux";
 import {profileApi} from "../api/api";
+import {stopSubmit} from "redux-form";
+
 
 type ActionsTypes =
     ReturnType<typeof addPost>
     | ReturnType<typeof updateNewPost>
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setStatus>
-
+    | ReturnType<typeof savePhotoSuccess>
 
 
 export type ProfilePageType = {
@@ -75,8 +77,10 @@ const profileReducer = (state: ProfilePageType = initialState, action: ActionsTy
         case "SET-STATUS":
             return {
                 ...state,
-                status:action.status
+                status: action.status
             }
+        case "SET-PHOTO":
+            return {...state, profile: {...state.profile, photos: action.photos}}
         default:
             return state
 
@@ -113,6 +117,13 @@ export const setStatus = (status: string) => {
     } as const
 }
 
+export const savePhotoSuccess = (photos: string) => {
+    return {
+        type: 'SET-PHOTO',
+        photos
+    } as const
+}
+
 
 type GetStateType = () => AppStateType
 type DispatchType = Dispatch<ActionsTypes>
@@ -135,10 +146,36 @@ export const getStatus = (userId: number) => {
 
 export const updateStatus = (status: string) => {
     return (dispatch: DispatchType, getStateType: GetStateType) => {
-        profileApi.updateStatus(status).then(data=> {
-            if(data.resultCode === 0) {
+        profileApi.updateStatus(status).then(data => {
+            if (data.resultCode === 0) {
                 dispatch(setStatus(status))
             }
+        })
+    }
+}
+
+export const savePhoto = (file: any) => {
+    return (dispatch: DispatchType, getStateType: GetStateType) => {
+        profileApi.savePhoto(file).then((data) => {
+            if (data.resultCode === 0) {
+                dispatch(savePhotoSuccess(data.data.photos))
+            }
+        })
+    }
+}
+
+export const saveProfile = (profile: any) => {
+    return (dispatch: DispatchType, getStateType: GetStateType) => {
+        const userId= getStateType().auth.userId
+        profileApi.saveProfile(profile).then((data) => {
+            if (data.resultCode === 0) {
+                // @ts-ignore
+                dispatch(getUserProfile(userId))
+            }else{
+               /* let message = data.data.messages[0]
+                dispatch(stopSubmit('edit-profile',{_error:message}))*/
+            }
+
         })
     }
 }
