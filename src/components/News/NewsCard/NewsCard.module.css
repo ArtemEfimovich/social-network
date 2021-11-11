@@ -1,0 +1,44 @@
+.wrapperContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 20px 0 20px ;
+    min-height: 200px;
+
+}
+
+
+.image img{
+    width: 180px;
+    height: 180px;
+    border-radius: 10px;
+}
+
+.container{
+    display: flex;
+    flex-direction:column;
+}
+
+.container div{
+    margin: 4px 0 0 20px;
+}
+
+
+.subtitle{
+    display: flex;
+    justify-content: flex-start;
+}
+
+.subtitle div{
+    margin-left: 20px;
+    font-weight: lighter;
+}
+
+.title{
+    font-weight: bold;
+}
+
+.description{
+    font-weight: bolder;
+}

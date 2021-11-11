@@ -57,7 +57,7 @@ class App extends React.Component<AppProps> {
                                render={() => {
                                    return <React.Suspense fallback={<Preloader/>}>
                                        <DialogsContainer/>
-                                   </React.Suspense>
+                                    </React.Suspense>
                                }}/>
                         <Route path="/profile/:userId?" render={() => {
                             return <React.Suspense fallback={<Preloader/>}>
@@ -83,6 +83,5 @@ const MapStateToProps = (state: AppStateType) => ({
 
 
 export default connect(MapStateToProps, {initializeApp})(App);
-
 
 
