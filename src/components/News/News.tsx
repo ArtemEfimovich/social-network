@@ -11,7 +11,7 @@ function News() {
     const dispatch = useDispatch()
 
     const articles = useSelector<AppStateType, ArticlesType[]>(state => state.news.articles)
-
+    const error =useSelector<AppStateType,string|null>(state=>state.news.error)
 
     useEffect(() => {
         dispatch(getNewsTC())
@@ -19,6 +19,7 @@ function News() {
 
     return (
         <div>
+            {error && <div>{error}</div>}
             {articles.map(({source,
                                author,
                                title,

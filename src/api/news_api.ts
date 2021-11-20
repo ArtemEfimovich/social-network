@@ -27,19 +27,19 @@ export type SourceType = {
 }
 
 
+
 const instance = axios.create({
-    baseURL: 'https://newsapi.org/v2/',
+    baseURL: "https://newsapi.org/v2/",
+    withCredentials: true
 })
 
 
 export const newsAPI = {
     getNews(sources?:string|null, q?:string|null, language?:string|null, country?:string|null, category?:string|null) {
       return instance.get<{params:{sources?:string|null, q?:string|null, language?:string|null, country?:string|null, category?:string|null}},AxiosResponse<ResponseNewsType>>(
-            'everything?'+
-                'q=Apple&' +
-            'from=2021-11-11&' +
-            'sortBy=popularity&' +
-            'apiKey=3d5ebf17d7d3402783a28bda3e0c1759',{params:{sources, q, language, country, category}})
+          "top-headlines?"+
+          'country=ru&' +
+          'apiKey=3d5ebf17d7d3402783a28bda3e0c1759',{params:{sources, q, language, country, category}})
             .then(response =>{
                 return response.data
             })
