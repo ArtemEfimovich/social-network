@@ -8,7 +8,6 @@ export type AppType = {
     initialized:boolean
 }
 
-
 let initialState:  AppType = {
     initialized: false,
 
@@ -42,13 +41,8 @@ export const initializeApp = () => {
         Promise.all([promise]).then(() => {
             dispatch(setInitialized())
         })
-
-
-        }
+    }
 }
-
-
-
 
 
 export default appReducer;

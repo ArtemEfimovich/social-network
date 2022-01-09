@@ -30,7 +30,6 @@ export type SourceType = {
 
 const instance = axios.create({
     baseURL: "https://newsapi.org/v2/",
-    withCredentials: true
 })
 
 
